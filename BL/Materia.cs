@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Materia 
+    public class Materia
     {
         public static ML.Result Add(ML.Materia materia)
         {
@@ -44,7 +45,7 @@ namespace BL
 
                         int rowsAffected = cmd.ExecuteNonQuery();
 
-                        if(rowsAffected > 0)
+                        if (rowsAffected > 0)
                         {
                             result.Correct = true;
                         }
@@ -63,6 +64,68 @@ namespace BL
                 result.Correct = false;
             }
             return result;
+        }
+
+        public static ML.Result GetAll()
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using(SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
+                {
+                    var query = "SELECT IdMateria, Nombre, Creditos, Costo FROM Materia";
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = context;
+                        cmd.CommandText = query;
+
+                        //Crear tabla virtual
+                        DataTable tableMateria = new DataTable();
+
+                        //Permite leer la información de la consulta
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                        //llenar la tabla virtual
+                        adapter.Fill(tableMateria);
+                        
+                        if(tableMateria.Rows.Count > 0)
+                        {
+                            result.Objects = new List<object>();
+
+                            foreach (DataRow row in tableMateria.Rows)
+                            {
+                                ML.Materia materia = new ML.Materia();
+
+                                materia.IdMateria = int.Parse(row[0].ToString());
+                                materia.Nombre = row[1].ToString();
+                                materia.Creditos = byte.Parse(row[2].ToString());
+                                materia.Costo = decimal.Parse(row[3].ToString());
+
+                                result.Objects.Add(materia);
+                            }
+
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct= false;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+        public static ML.Result GetById()
+        {
+
         }
     }
 }

@@ -33,5 +33,19 @@ namespace PL1
             }
             Console.ReadKey();
         }
+        public static void GetById()
+        {
+            ML.Result result = BL.Materia.GetAll();
+
+            foreach(ML.Materia materia in result.Objects)
+            {
+                Console.WriteLine("-------------------------------");
+                Console.WriteLine("ID: " + materia.IdMateria);
+                Console.WriteLine("Nombre: " + materia.Nombre);
+                Console.WriteLine("Creditos: " + materia.Creditos);
+                Console.WriteLine("Costo: " + materia.Costo);
+                Console.WriteLine("-------------------------------");
+            }
+        }
     }
 }

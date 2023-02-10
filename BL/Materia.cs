@@ -18,7 +18,7 @@ namespace BL
             {
                 using (SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
                 {
-                    string query = "INSERT INTO Materia (Nombre, Creditos, Costo) VALUES (@Nombre, @Creditos, @Costo)";
+                    string query = "MateriaAdd";
 
                     //ejecutar una sentencia, necesita una conexion 
                     using (SqlCommand cmd = new SqlCommand())
@@ -27,6 +27,7 @@ namespace BL
                         cmd.Connection = context;
                         //asignamos la sentencia
                         cmd.CommandText = query;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
                         SqlParameter[] parameters = new SqlParameter[3];
 
@@ -65,20 +66,21 @@ namespace BL
             }
             return result;
         }
-
         public static ML.Result GetAll()
         {
             ML.Result result = new ML.Result();
             try
             {
-                using(SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
+                using (SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
                 {
-                    var query = "SELECT IdMateria, Nombre, Creditos, Costo FROM Materia";
+                    //var query = "SELECT IdMateria, Nombre, Creditos, Costo FROM Materia";
+                    var query = "MateriaGetAll";
 
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.Connection = context;
                         cmd.CommandText = query;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
                         //Crear tabla virtual
                         DataTable tableMateria = new DataTable();
@@ -88,8 +90,8 @@ namespace BL
 
                         //llenar la tabla virtual
                         adapter.Fill(tableMateria);
-                        
-                        if(tableMateria.Rows.Count > 0)
+
+                        if (tableMateria.Rows.Count > 0)
                         {
                             result.Objects = new List<object>();
 
@@ -109,7 +111,7 @@ namespace BL
                         }
                         else
                         {
-                            result.Correct= false;
+                            result.Correct = false;
                         }
 
                     }
@@ -123,9 +125,69 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result GetById()
+        public static ML.Result GetById(ML.Materia materia)
         {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (SqlConnection context = new SqlConnection(DL.Conexion.GetConnectionString()))
+                {
+                    var query = "SELECT IdMateria, Nombre, Creditos, Costo FROM Materia WHERE IdMateria = @IdMateria";
 
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = context;
+                        cmd.CommandText = query;
+
+                        SqlParameter[] parameters = new SqlParameter[1];
+
+                        parameters[0] = new SqlParameter("@IdMateria", System.Data.SqlDbType.Int);
+                        parameters[0].Value = materia.IdMateria;
+
+                        cmd.Parameters.AddRange(parameters);
+
+                        //Crear tabla virtual
+                        DataTable tableMateria = new DataTable();
+
+                        //Permite leer la información de la consulta
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                        //llenar la tabla virtual
+                        adapter.Fill(tableMateria);
+
+                        if (tableMateria.Rows.Count > 0)
+                        {
+
+                            DataRow row = tableMateria.Rows[0];
+
+                            ML.Materia materiaResult = new ML.Materia();
+
+                            materiaResult.IdMateria = int.Parse(row[0].ToString());
+                            materiaResult.Nombre = row[1].ToString();
+                            materiaResult.Creditos = byte.Parse(row[2].ToString());
+                            materiaResult.Costo = decimal.Parse(row[3].ToString());
+
+
+                            //boxing
+                            result.Object = materiaResult;
+
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct = false;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
         }
     }
 }

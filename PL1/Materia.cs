@@ -35,17 +35,21 @@ namespace PL1
         }
         public static void GetById()
         {
-            ML.Result result = BL.Materia.GetAll();
+            ML.Materia materia = new ML.Materia();
+            Console.WriteLine("ingrese el id del registro");
+            materia.IdMateria = int.Parse(Console.ReadLine());
+            ML.Result result = BL.Materia.GetById(materia);
 
-            foreach(ML.Materia materia in result.Objects)
-            {
+            //unboxing
+            materia = (ML.Materia)result.Object;
+
                 Console.WriteLine("-------------------------------");
                 Console.WriteLine("ID: " + materia.IdMateria);
                 Console.WriteLine("Nombre: " + materia.Nombre);
                 Console.WriteLine("Creditos: " + materia.Creditos);
                 Console.WriteLine("Costo: " + materia.Costo);
                 Console.WriteLine("-------------------------------");
-            }
+
         }
     }
 }

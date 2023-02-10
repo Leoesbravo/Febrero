@@ -31,9 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,8 +51,66 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alumno.cs">
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="LEscogidoProgramacionNCapas.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LEscogidoProgramacionNCapas.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LEscogidoProgramacionNCapas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LEscogidoProgramacionNCapas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LEscogidoProgramacionNCapas.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Materia.cs">
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MateriaGetAll_Result.cs">
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MateriaGetById_Result.cs">
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Semestre.cs">
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="LEscogidoProgramacionNCapas.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LEscogidoProgramacionNCapas.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="LEscogidoProgramacionNCapas.edmx.diagram">
+      <DependentUpon>LEscogidoProgramacionNCapas.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LEscogidoProgramacionNCapas.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LEscogidoProgramacionNCapas.Context.cs</LastGenOutput>
+      <DependentUpon>LEscogidoProgramacionNCapas.edmx</DependentUpon>
+    </Content>
+    <Content Include="LEscogidoProgramacionNCapas.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LEscogidoProgramacionNCapas.edmx</DependentUpon>
+      <LastGenOutput>LEscogidoProgramacionNCapas.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

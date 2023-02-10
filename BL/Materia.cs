@@ -66,6 +66,34 @@ namespace BL
             }
             return result;
         }
+        public static ML.Result AddEF(ML.Materia materia)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using(DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
+                {
+                    var query = context.MateriaAdd(materia.Nombre,materia.Creditos,materia.Costo, materia.IdSemestre);
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage=ex.Message;
+                result.Ex = ex;
+                result.Correct = false;
+            }
+            return result;
+        }
         public static ML.Result GetAll()
         {
             ML.Result result = new ML.Result();
@@ -186,6 +214,40 @@ namespace BL
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;
+            }
+            return result;
+        }
+        public static ML.Result GetAllEF()
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
+                {
+                    var query = context.MateriaGetAll().ToList();
+
+                    if(query != null)
+                    {
+                        result.Objects = new List<object>();
+                        foreach(var resultMateria in query)
+                        {
+                            ML.Materia materia = new ML.Materia();
+                            materia.IdMateria = resultMateria.IdMateria;
+                            materia.Nombre = resultMateria.Nombre;
+                            materia.Creditos = resultMateria.Creditos.Value;
+                            materia.Costo = resultMateria.Costo.Value;
+
+                            result.Objects.Add(materia);
+                        }
+                        result.Correct = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }

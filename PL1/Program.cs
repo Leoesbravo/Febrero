@@ -10,7 +10,8 @@ namespace PL1
     {
         static void Main(string[] args)
         {
-            Materia.GetAll();
+            Materia.Add();
+            Console.ReadKey();
         }
     }
 }

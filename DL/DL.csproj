@@ -73,6 +73,9 @@
     <Compile Include="Materia.cs">
       <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
     </Compile>
+    <Compile Include="MateriaDelete_Result.cs">
+      <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="MateriaGetAll_Result.cs">
       <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
     </Compile>
@@ -83,6 +86,9 @@
     <Compile Include="Semestre.cs">
       <DependentUpon>LEscogidoProgramacionNCapas.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="LEscogidoProgramacionNCapas.edmx">
@@ -108,9 +114,6 @@
       <DependentUpon>LEscogidoProgramacionNCapas.edmx</DependentUpon>
       <LastGenOutput>LEscogidoProgramacionNCapas.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

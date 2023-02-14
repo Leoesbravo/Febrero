@@ -26,7 +26,7 @@ namespace PL1
             materia.Semestre.IdSemestre = int.Parse(Console.ReadLine());
 
 
-            ML.Result result = BL.Materia.AddEF(materia);
+            ML.Result result = BL.Materia.AddLINQ(materia);
 
             if (result.Correct == true)
             {
@@ -41,9 +41,9 @@ namespace PL1
         public static void GetById()
         {
             ML.Materia materia = new ML.Materia();
-            Console.WriteLine("ingrese el id del registro");
-            materia.IdMateria = int.Parse(Console.ReadLine());
-            ML.Result result = BL.Materia.GetById(materia);
+            //Console.WriteLine("ingrese el id del registro");
+            //materia.IdMateria = int.Parse(Console.ReadLine());
+            ML.Result result = BL.Materia.GetAllEF();
 
             //unboxing
             materia = (ML.Materia)result.Object;
@@ -56,7 +56,6 @@ namespace PL1
                 Console.WriteLine("IdSemestre: " + materia.Semestre.IdSemestre);
                 Console.WriteLine("Semestre: " + materia.Semestre.Nombre);
                 Console.WriteLine("-------------------------------");
-
         }
     }
 }

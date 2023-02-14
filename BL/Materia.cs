@@ -10,6 +10,7 @@ namespace BL
 {
     public class Materia
     {
+        //SQL Client
         public static ML.Result Add(ML.Materia materia)
         {
             ML.Result result = new ML.Result(); //instancia
@@ -61,34 +62,6 @@ namespace BL
             catch (Exception ex)
             {
                 result.ErrorMessage = ex.Message;
-                result.Ex = ex;
-                result.Correct = false;
-            }
-            return result;
-        }
-        public static ML.Result AddEF(ML.Materia materia)
-        {
-            ML.Result result = new ML.Result();
-
-            try
-            {
-                using(DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
-                {
-                    var query = context.MateriaAdd(materia.Nombre,materia.Creditos,materia.Costo, materia.Semestre.IdSemestre);
-
-                    if (query > 0)
-                    {
-                        result.Correct = true;
-                    }
-                    else
-                    {
-                        result.Correct = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                result.ErrorMessage=ex.Message;
                 result.Ex = ex;
                 result.Correct = false;
             }
@@ -217,6 +190,35 @@ namespace BL
             }
             return result;
         }
+        //EF
+        public static ML.Result AddEF(ML.Materia materia)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using(DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
+                {
+                    var query = context.MateriaAdd(materia.Nombre,materia.Creditos,materia.Costo, materia.Semestre.IdSemestre);
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage=ex.Message;
+                result.Ex = ex;
+                result.Correct = false;
+            }
+            return result;
+        }
         public static ML.Result GetAllEF()
         {
             ML.Result result = new ML.Result();
@@ -237,6 +239,17 @@ namespace BL
                             materia.Costo = obj.Costo.Value;
                             materia.Creditos = obj.Creditos.Value;
 
+                            materia.Semestre = new ML.Semestre();
+                            if(obj.IdSemestre == null)
+                            {
+                                result.ErrorMessage = "La materia semestre asignado";
+                            }
+                            else
+                            {
+                                materia.Semestre.IdSemestre = obj.IdSemestre.Value;
+                            }
+                           
+
                             result.Objects.Add(materia);
                         }
 
@@ -254,6 +267,43 @@ namespace BL
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;
+            }
+            return result;
+        }
+        //LINQ
+        public static ML.Result AddLINQ(ML.Materia materia)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
+                {
+                    DL.Materia materiaDL = new DL.Materia();
+
+                    materiaDL.Nombre = materia.Nombre;
+                    materiaDL.Costo = materia.Costo;
+                    materiaDL.Creditos = materia.Creditos;
+                    materiaDL.IdSemestre = materia.Semestre.IdSemestre;
+
+                    context.Materias.Add(materiaDL);
+                    var query = context.SaveChanges();
+                    if(query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+                
+            }
+
+            catch (Exception ex)
+            {
+                result.Ex = ex;
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }

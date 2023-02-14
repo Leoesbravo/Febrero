@@ -52,7 +52,7 @@ namespace DL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MateriaAdd", nombreParameter, creditosParameter, costoParameter, idSemestreParameter);
         }
     
-        public virtual int MateriaDelete(Nullable<int> idMateria, Nullable<int> idAlumno)
+        public virtual ObjectResult<MateriaDelete_Result> MateriaDelete(Nullable<int> idMateria, Nullable<int> idAlumno)
         {
             var idMateriaParameter = idMateria.HasValue ?
                 new ObjectParameter("IdMateria", idMateria) :
@@ -62,7 +62,7 @@ namespace DL
                 new ObjectParameter("IdAlumno", idAlumno) :
                 new ObjectParameter("IdAlumno", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MateriaDelete", idMateriaParameter, idAlumnoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MateriaDelete_Result>("MateriaDelete", idMateriaParameter, idAlumnoParameter);
         }
     
         public virtual ObjectResult<MateriaGetById_Result> MateriaGetById(Nullable<int> idMateria)

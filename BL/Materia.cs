@@ -74,7 +74,7 @@ namespace BL
             {
                 using(DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
                 {
-                    var query = context.MateriaAdd(materia.Nombre,materia.Creditos,materia.Costo, materia.IdSemestre);
+                    var query = context.MateriaAdd(materia.Nombre,materia.Creditos,materia.Costo, materia.Semestre.IdSemestre);
 
                     if (query > 0)
                     {
@@ -229,25 +229,31 @@ namespace BL
                     if(query != null)
                     {
                         result.Objects = new List<object>();
-                        foreach(var resultMateria in query)
+                        foreach (var obj in query)
                         {
                             ML.Materia materia = new ML.Materia();
-                            materia.IdMateria = resultMateria.IdMateria;
-                            materia.Nombre = resultMateria.Nombre;
-                            materia.Creditos = resultMateria.Creditos.Value;
-                            materia.Costo = resultMateria.Costo.Value;
+                            materia.IdMateria = obj.IdMateria;
+                            materia.Nombre = obj.Nombre;
+                            materia.Costo = obj.Costo.Value;
+                            materia.Creditos = obj.Creditos.Value;
 
                             result.Objects.Add(materia);
                         }
+
                         result.Correct = true;
                     }
+                    else
+                    {
+                        result.Correct=false;
+                    }
+
                 }
             }
             catch (Exception ex)
             {
                 result.Correct = false;
-                result.Ex = ex;
                 result.ErrorMessage = ex.Message;
+                result.Ex = ex;
             }
             return result;
         }

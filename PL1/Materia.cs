@@ -22,7 +22,9 @@ namespace PL1
             materia.Creditos = byte.Parse(Console.ReadLine());
 
             Console.WriteLine("Ingrese el id del semestre de la materia");
-            materia.IdSemestre = int.Parse(Console.ReadLine());
+            materia.Semestre = new ML.Semestre();
+            materia.Semestre.IdSemestre = int.Parse(Console.ReadLine());
+
 
             ML.Result result = BL.Materia.AddEF(materia);
 
@@ -51,6 +53,8 @@ namespace PL1
                 Console.WriteLine("Nombre: " + materia.Nombre);
                 Console.WriteLine("Creditos: " + materia.Creditos);
                 Console.WriteLine("Costo: " + materia.Costo);
+                Console.WriteLine("IdSemestre: " + materia.Semestre.IdSemestre);
+                Console.WriteLine("Semestre: " + materia.Semestre.Nombre);
                 Console.WriteLine("-------------------------------");
 
         }

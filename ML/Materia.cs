@@ -8,11 +8,13 @@ namespace ML
 {
     public class Materia
     {
-        public int IdMateria { get; set; } //va a permitr valores nulos 
-        public int IdSemestre { get; set; } //va a permitr valores nulos 
+        public int IdMateria { get; set; } 
+
+        //propiedad de navegacio
+        public ML.Semestre Semestre { get; set; }
         public string Nombre { get; set; }
         public byte Creditos { get; set; }
-        public decimal Costo { get; set; }
+        public decimal Costo { get; set; } //va a permitr valores nulos  
 
         //propiedad de navegacion
     }

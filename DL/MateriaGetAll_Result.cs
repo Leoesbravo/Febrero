@@ -17,5 +17,6 @@ namespace DL
         public string Nombre { get; set; }
         public Nullable<byte> Creditos { get; set; }
         public Nullable<decimal> Costo { get; set; }
+        public Nullable<int> IdSemestre { get; set; }
     }
 }

@@ -101,7 +101,6 @@
             <Parameter Name="Costo" Mode="In" Type="Decimal" />
             <Parameter Name="IdSemestre" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="MateriaGetAll" ReturnType="Collection(LEscogidoProgramacionNCapasFebreroModel.MateriaGetAll_Result)" />
           <FunctionImport Name="MateriaDelete">
             <Parameter Name="IdMateria" Mode="In" Type="Int32" />
             <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
@@ -114,13 +113,8 @@
             <End Role="Semestre" EntitySet="Semestres" />
             <End Role="Materia" EntitySet="Materias" />
           </AssociationSet>
+          <FunctionImport Name="MateriaGetAll" ReturnType="Collection(LEscogidoProgramacionNCapasFebreroModel.MateriaGetAll_Result)" />
         </EntityContainer>
-        <ComplexType Name="MateriaGetAll_Result">
-          <Property Type="Int32" Name="IdMateria" Nullable="false" />
-          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
-          <Property Type="Byte" Name="Creditos" Nullable="true" />
-          <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
-        </ComplexType>
         <ComplexType Name="MateriaGetById_Result">
           <Property Type="Int32" Name="IdMateria" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
@@ -147,6 +141,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="MateriaGetAll_Result">
+          <Property Type="Int32" Name="IdMateria" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="Creditos" Nullable="true" />
+          <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="IdSemestre" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -176,16 +177,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="MateriaAdd" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaAdd" />
-          <FunctionImportMapping FunctionImportName="MateriaGetAll" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaGetAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="LEscogidoProgramacionNCapasFebreroModel.MateriaGetAll_Result">
-                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Creditos" ColumnName="Creditos" />
-                <ScalarProperty Name="Costo" ColumnName="Costo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MateriaDelete" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaDelete" />
           <FunctionImportMapping FunctionImportName="MateriaGetById" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaGetById">
             <ResultMapping>
@@ -205,6 +196,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MateriaGetAll" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LEscogidoProgramacionNCapasFebreroModel.MateriaGetAll_Result">
+                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Creditos" ColumnName="Creditos" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="IdSemestre" ColumnName="IdSemestre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

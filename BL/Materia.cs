@@ -239,7 +239,6 @@ namespace BL
                             materia.Costo = obj.Costo.Value;
                             materia.Creditos = obj.Creditos.Value;
 
-                            materia.Semestre = new ML.Semestre();
                             if(obj.IdSemestre == null)
                             {
                                 result.ErrorMessage = "La materia semestre asignado";
@@ -307,5 +306,54 @@ namespace BL
             }
             return result;
         }
+        public static ML.Result GetAllLINQ()
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
+                {
+                    var query = (from materia in context.Materias               
+                                 join semestre in context.Semestres on materia.IdSemestre equals semestre.IdSemestre
+                                 //where materia.IdCarrera == semestre.IdCarrera
+                                 select new { IdMateria = materia.IdMateria, Nombre = materia.Nombre, Creditos = materia.Creditos, Costo = materia.Costo, NombreSemestre = semestre.Nombre, IdSemestre = semestre.IdSemestre });
+
+                    result.Objects = new List<object>();
+
+                    if (query != null && query.ToList().Count > 0)
+                    {
+                        foreach (var obj in query)
+                        {
+                            ML.Materia materia = new ML.Materia();
+                            materia.IdMateria = obj.IdMateria;
+                            materia.Nombre = obj.Nombre;
+                            materia.Creditos = obj.Creditos.Value;
+                            materia.Costo = obj.Costo.Value;
+
+                            materia.Semestre = new ML.Semestre();
+                            materia.Semestre.IdSemestre = obj.IdSemestre;
+                            materia.Semestre.Nombre = obj.NombreSemestre;
+
+                            result.Objects.Add(materia);
+                        }
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Ex = ex;
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+
     }
 }

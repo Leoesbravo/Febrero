@@ -44,9 +44,8 @@ namespace PL1
             //Console.WriteLine("ingrese el id del registro");
             //materia.IdMateria = int.Parse(Console.ReadLine());
             ML.Result result = BL.Materia.GetAllEF();
-
-            //unboxing
-            materia = (ML.Materia)result.Object;
+            foreach(ML.Materia materia1 in result.Objects)
+            {
 
                 Console.WriteLine("-------------------------------");
                 Console.WriteLine("ID: " + materia.IdMateria);
@@ -56,6 +55,11 @@ namespace PL1
                 Console.WriteLine("IdSemestre: " + materia.Semestre.IdSemestre);
                 Console.WriteLine("Semestre: " + materia.Semestre.Nombre);
                 Console.WriteLine("-------------------------------");
+            }
+
+            //unboxing
+            materia = (ML.Materia)result.Object;
+
         }
     }
 }

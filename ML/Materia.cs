@@ -16,6 +16,8 @@ namespace ML
         public byte Creditos { get; set; }
         public decimal Costo { get; set; } //va a permitr valores nulos  
 
+        public List<object> Materias { get; set; }
+
         //propiedad de navegacion
     }
 }

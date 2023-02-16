@@ -238,6 +238,7 @@ namespace BL
                             materia.Nombre = obj.Nombre;
                             materia.Costo = obj.Costo.Value;
                             materia.Creditos = obj.Creditos.Value;
+                            materia.Semestre = new ML.Semestre();
 
                             if(obj.IdSemestre == null)
                             {

@@ -10,9 +10,16 @@ namespace PLMVC.Controllers
     {
         // GET: Materia
         //ActionResult, Action Method, Razor, Bootstrap
+        //ActionVerb //GET, POST, PUT, DELETE
+        [HttpGet] //Decorador
         public ActionResult GetAll()
         {
-            return View();
+            ML.Materia materia = new ML.Materia();
+            ML.Result result = BL.Materia.GetAllEF();
+
+            materia.Materias = result.Objects;
+            return View(materia);
         }
+
     }
 }

@@ -20,6 +20,27 @@ namespace PLMVC.Controllers
             materia.Materias = result.Objects;
             return View(materia);
         }
+        [HttpGet] //mostrar la vista
+        public ActionResult Form()
+        {
+            return View();
+        }
+        [HttpPost] //Hacer el registro
+        public ActionResult Form(ML.Materia materia)
+        {
+            ML.Result result = BL.Materia.AddEF(materia);
+            if (result.Correct)
+            {
+                ViewBag.Message = "Se ha realizado el registro";
+                return PartialView("Modal");
+            }
+            else
+            {
+                ViewBag.Message = "No se ha realizado el registro";
+                return PartialView("Modal");
+            }
 
+           
+        }
     }
 }

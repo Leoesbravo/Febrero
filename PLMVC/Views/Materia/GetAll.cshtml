@@ -20,11 +20,11 @@
     </div> 
 </div>
 
-@*<div style="float:right;">                   
-    @Html.ActionLink("Agregar", "Form", "MateriaController1", htmlAttributes: new { @class = "btn btn-success" })
-</div>*@                         
+<div style="float:right;">                   
+    @Html.ActionLink("Agregar", "Form", "Materia", htmlAttributes: new { @class = "btn btn-success" })
+</div>                         
 <br />
-<table >
+<table class="table table-hover table-striped table-bordered table-responsive" id="table_usuarios">
     <thead>
         <tr class="table-secondary">
             <td>Editar</td>
@@ -40,14 +40,14 @@
         @foreach (ML.Materia materia in Model.Materias)
         {
             <tr>
-                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon" href="@Url.Action("Form", "MateriaController1", new { IdMateria = materia.IdMateria })"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Form", "MateriaController1", new { IdMateria = materia.IdMateria })"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
                 <td style="display :none;">@materia.IdMateria </td>
                 <td>@materia.Nombre</td>
                 <td>@materia.Creditos</td>
                 <td>@materia.Costo</td>
                 <td>@materia.Semestre.IdSemestre</td>
 
-                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "MateriaController1", new { IdMateria= materia.IdMateria})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-eraser-fill" style="color: mintcream"></i></a></td>
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger glyphicon glyphicon-remove" href="@Url.Action("Delete", "Materia", new { IdMateria= materia.IdMateria})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
             </tr>
         }
 

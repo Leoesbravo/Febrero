@@ -52,7 +52,6 @@
         </Function>
         <Function Name="MateriaDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdMateria" Type="int" Mode="In" />
-          <Parameter Name="IdAlumno" Type="int" Mode="In" />
         </Function>
         <Function Name="MateriaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="MateriaGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -126,21 +125,14 @@
             <Parameter Name="Costo" Mode="In" Type="Decimal" />
             <Parameter Name="IdSemestre" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="MateriaDelete" ReturnType="Collection(LEscogidoProgramacionNCapasFebreroModel.MateriaDelete_Result)">
-            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
-            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="MateriaGetById" ReturnType="Collection(LEscogidoProgramacionNCapasFebreroModel.MateriaGetById_Result)">
           <Parameter Name="IdMateria" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="MateriaGetAll" ReturnType="Collection(LEscogidoProgramacionNCapasFebreroModel.MateriaGetAll_Result)" />
+          <FunctionImport Name="MateriaDelete">
+            <Parameter Name="IdMateria" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
-        <ComplexType Name="MateriaDelete_Result">
-          <Property Type="Int32" Name="IdMateria" Nullable="false" />
-          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Nombre_de_Semestre" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="0" />
-        </ComplexType>
         <ComplexType Name="MateriaGetById_Result">
           <Property Type="Int32" Name="IdMateria" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
@@ -192,16 +184,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="MateriaAdd" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaAdd" />
-          <FunctionImportMapping FunctionImportName="MateriaDelete" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaDelete">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="LEscogidoProgramacionNCapasFebreroModel.MateriaDelete_Result">
-                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Nombre_de_Semestre" ColumnName="Nombre de Semestre" />
-                <ScalarProperty Name="Costo" ColumnName="Costo" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MateriaGetById" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaGetById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="LEscogidoProgramacionNCapasFebreroModel.MateriaGetById_Result">
@@ -224,6 +206,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MateriaDelete" FunctionName="LEscogidoProgramacionNCapasFebreroModel.Store.MateriaDelete" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

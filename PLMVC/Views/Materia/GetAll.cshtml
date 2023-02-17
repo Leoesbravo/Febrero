@@ -40,7 +40,7 @@
         @foreach (ML.Materia materia in Model.Materias)
         {
             <tr>
-                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Form", "MateriaController1", new { IdMateria = materia.IdMateria })"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
+                <td style="text-align: center; vertical-align: middle;"><a class="btn btn-warning glyphicon glyphicon-pencil" href="@Url.Action("Form", "Materia", new { IdMateria = materia.IdMateria })"><i class="bi bi-pencil-square" style="color: ivory"></i></a></td>
                 <td style="display :none;">@materia.IdMateria </td>
                 <td>@materia.Nombre</td>
                 <td>@materia.Creditos</td>

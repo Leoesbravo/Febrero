@@ -126,7 +126,7 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result GetById(ML.Materia materia)
+        public static ML.Result GetById(int idMateria)
         {
             ML.Result result = new ML.Result();
             try
@@ -143,7 +143,7 @@ namespace BL
                         SqlParameter[] parameters = new SqlParameter[1];
 
                         parameters[0] = new SqlParameter("@IdMateria", System.Data.SqlDbType.Int);
-                        parameters[0].Value = materia.IdMateria;
+                        parameters[0].Value = idMateria;
 
                         cmd.Parameters.AddRange(parameters);
 
@@ -267,6 +267,31 @@ namespace BL
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;
+            }
+            return result;
+        }
+        public static ML.Result DeleteEF(int idMateria)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL.LEscogidoProgramacionNCapasFebreroEntities context = new DL.LEscogidoProgramacionNCapasFebreroEntities())
+                {
+                    var query = context.MateriaDelete(idMateria);
+
+                    if(query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return result;
         }

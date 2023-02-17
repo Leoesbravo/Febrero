@@ -22,6 +22,11 @@
     </div>
 </div>
 <div class="row">
+    <div class="input-group mb-3">
+        <span class="input-group-addon" id="basic-addon1"><i class="fa-solid fa-person-rays fa-beat"></i></span>
+        @Html.TextBoxFor(model => model.Costo, new { @class = "form-control", @id = "txtCosto", @placeholder = "MXN", @onkeypress = "return SoloNumeros(event, 'lblCosto')" })
+        @Html.ValidationMessageFor(model => model.Costo)
+    </div>
     <div class="col-md-5">
         @Html.LabelFor(model => model.Nombre)
         <div class="input-group mb-5">
